@@ -1,0 +1,42 @@
+﻿<Window x:Class="ch.hsr.wpf.gadgeothek.admintool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ch.hsr.wpf.gadgeothek.admintool"
+        mc:Ignorable="d"
+        Title="Gadgeothek" Height="350" Width="525">
+    <Grid>
+        <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TabItem Header="Gadgets">
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top">
+                        <Button Content="New Gadget" Width="100" Margin="5"/>
+                        <Button Content="Edit Gadget" Width="100" Margin="5"/>
+                    </StackPanel>
+                    <Grid Background="#FFE5E5E5" >
+                        <DataGrid Name="gadgetGrid" />
+                    </Grid>
+                </DockPanel>
+ 
+            </TabItem>
+            <TabItem Header="Ausleihen">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid Name="loanGrid" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Reservationen">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid Name="reservationGrid" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Kunden">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid Name="customerGrid" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+
+    </Grid>
+</Window>
