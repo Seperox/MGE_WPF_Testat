@@ -7,11 +7,15 @@
         mc:Ignorable="d"
         Title="addGadget" Height="300" Width="300">
     <Grid>
-        <StackPanel HorizontalAlignment="Stretch"  VerticalAlignment="Stretch">
+        <StackPanel HorizontalAlignment="Stretch"  Margin="5,5,5,5" VerticalAlignment="Stretch">
             <TextBlock>Name:</TextBlock>
+            <TextBox Name="name" Margin="0,0,0,10"></TextBox>
             <TextBlock>Manufacturer:</TextBlock>
-            <TextBlock>Condition:</TextBlock>
+            <TextBox Name="manufacturer" Margin="0,0,0,10" ></TextBox>
+            
             <TextBlock>Price:</TextBlock>
+            <TextBox Name="price" Margin="0,0,0,10" ></TextBox>
+            <Button Content="Add Gadget" Click="Button_Click"></Button>
         </StackPanel>
 
     </Grid>

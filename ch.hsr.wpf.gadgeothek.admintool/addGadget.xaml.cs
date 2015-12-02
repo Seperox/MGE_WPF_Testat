@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ch.hsr.wpf.gadgeothek.domain;
+using ch.hsr.wpf.gadgeothek.service;
 
 namespace ch.hsr.wpf.gadgeothek.admintool
 {
@@ -22,6 +24,26 @@ namespace ch.hsr.wpf.gadgeothek.admintool
         public addGadget()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Gadget gadget = new Gadget(name.Text.ToString());
+            double isDouble;
+            double.TryParse(price.Text.ToString(), out isDouble);
+            gadget.Price = isDouble;
+            gadget.Manufacturer = manufacturer.Text.ToString();
+            LibraryAdminService service = new LibraryAdminService("http://mge10.dev.ifs.hsr.ch/");
+            if (service.AddGadget(gadget))
+            {
+                MessageBox.Show("Gadget successfully added!");
+            }
+            else
+            {
+                MessageBox.Show("Operation failed!");
+            }
+            
+
         }
     }
 }

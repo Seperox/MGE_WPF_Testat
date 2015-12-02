@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ch.hsr.wpf.gadgeothek.admintool"
         mc:Ignorable="d"
-        Title="Gadgeothek" Height="350" Width="525">
+        Title="Gadgeothek" Height="350" Width="1025">
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TabItem Header="Gadgets">
                 <DockPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top">
-                        <Button Content="New Gadget" Width="100" Margin="5"/>
-                        <Button Content="Edit Gadget" Width="100" Margin="5"/>
+                        <Button Content="New Gadget" Width="120" Margin="5" Click="Button_Click"/>
+                        <Button Content="Delete Gadget" Width="120" Margin="5" />
                     </StackPanel>
                     <Grid Background="#FFE5E5E5" >
                         <DataGrid Name="gadgetGrid" />

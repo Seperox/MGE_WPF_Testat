@@ -26,7 +26,7 @@ namespace ch.hsr.wpf.gadgeothek.admintool
         public MainWindow()
         {
             InitializeComponent();
-            LibraryAdminService service = new LibraryAdminService("http://localhost:8080");
+            LibraryAdminService service = new LibraryAdminService("http://mge10.dev.ifs.hsr.ch/");
 
             List<domain.Gadget> gadgets = service.GetAllGadgets();
             List<domain.Loan> loans = service.GetAllLoans();
@@ -38,6 +38,12 @@ namespace ch.hsr.wpf.gadgeothek.admintool
             reservationGrid.ItemsSource = reservations;
             customerGrid.ItemsSource = customers;
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            addGadget window1 = new addGadget();
+            window1.Show();
         }
     }
 }
