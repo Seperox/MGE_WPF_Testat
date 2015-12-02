@@ -14,7 +14,7 @@
       <FileName>service\LibraryAdminService.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ch.hsr.wpf.gadgeothek.service.RestServiceBase" Collapsed="true">
+  <Class Name="ch.hsr.wpf.gadgeothek.service.RestServiceBase">
     <Position X="4.5" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAQAAAAEBDAECAAQAAAAIAgAgAAAABAAAACCABAAI=</HashCode>
