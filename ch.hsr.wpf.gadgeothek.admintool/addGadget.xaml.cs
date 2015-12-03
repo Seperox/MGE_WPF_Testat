@@ -37,6 +37,7 @@ namespace ch.hsr.wpf.gadgeothek.admintool
             if (service.AddGadget(gadget))
             {
                 MessageBox.Show("Gadget successfully added!");
+                this.Close();
             }
             else
             {
