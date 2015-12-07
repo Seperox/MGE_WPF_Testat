@@ -15,7 +15,7 @@
                         <Button Content="Delete Gadget" Width="120" Margin="5" />
                     </StackPanel>
                     <Grid Background="#FFE5E5E5" >
-                        <DataGrid Name="gadgetGrid" />
+                        <DataGrid Name="gadgetGrid" ItemsSource="{Binding Gadgets}" />
                     </Grid>
                 </DockPanel>
  

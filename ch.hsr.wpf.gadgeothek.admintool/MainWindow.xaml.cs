@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,27 +24,39 @@ namespace ch.hsr.wpf.gadgeothek.admintool
     /// </summary>
     public partial class MainWindow : Window
     {
+        private LibraryAdminService service;
+
+        public ObservableCollection<Gadget> Gadgets { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            LibraryAdminService service = new LibraryAdminService("http://mge10.dev.ifs.hsr.ch/");
+            service = new LibraryAdminService("http://mge10.dev.ifs.hsr.ch/");
 
-            List<domain.Gadget> gadgets = service.GetAllGadgets();
+            this.DataContext = this;
+            Gadgets = new ObservableCollection<Gadget>(service.GetAllGadgets());
             List<domain.Loan> loans = service.GetAllLoans();
             List<domain.Customer> customers = service.GetAllCustomers();
             List<domain.Reservation> reservations = service.GetAllReservations();
 
-            gadgetGrid.ItemsSource = gadgets;
+            //gadgetGrid.ItemsSource = gadgets;
             loanGrid.ItemsSource = loans;
             reservationGrid.ItemsSource = reservations;
             customerGrid.ItemsSource = customers;
 
         }
 
+
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             addGadget window1 = new addGadget();
             window1.Show();
+            window1.Closed += delegate(object s, EventArgs a)
+            {
+                Gadgets.Clear();
+                service.GetAllGadgets().ForEach(g => Gadgets.Add(g));
+            };
         }
     }
 }
