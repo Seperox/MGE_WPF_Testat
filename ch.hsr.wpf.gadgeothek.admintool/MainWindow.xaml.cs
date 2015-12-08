@@ -48,15 +48,50 @@ namespace ch.hsr.wpf.gadgeothek.admintool
 
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void NewGadget_Click(object sender, RoutedEventArgs e)
         {
-            addGadget window1 = new addGadget();
-            window1.Show();
-            window1.Closed += delegate(object s, EventArgs a)
+            addGadget addWindow = new addGadget();
+            addWindow.Show();
+            addWindow.Closed += delegate(object s, EventArgs a)
             {
-                Gadgets.Clear();
-                service.GetAllGadgets().ForEach(g => Gadgets.Add(g));
+                refreshGadgets();
             };
+        }
+
+        private void DeleteGadget_Click(object sender, RoutedEventArgs e)
+        {
+            if (gadgetGrid.SelectedItem == null)
+            {
+                MessageBox.Show("No Item selected!");
+            }else
+            {
+                Gadget selectedGadget = (Gadget)gadgetGrid.SelectedItem;
+
+                deleteGadget deleteWindow = new deleteGadget(selectedGadget);
+                deleteWindow.Show();
+                deleteWindow.Yes_Button.Click += delegate
+                {
+                    if (service.DeleteGadget(selectedGadget))
+                    {
+                        MessageBox.Show("Gadget successfully deleted!");
+                        deleteWindow.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Operation failed!");
+                    }
+                };
+                deleteWindow.Closed += delegate (object s, EventArgs a)
+                {
+                    refreshGadgets();
+                };
+            }
+        }
+
+        private void refreshGadgets()
+        {
+            Gadgets.Clear();
+            service.GetAllGadgets().ForEach(g => Gadgets.Add(g));
         }
     }
 }
