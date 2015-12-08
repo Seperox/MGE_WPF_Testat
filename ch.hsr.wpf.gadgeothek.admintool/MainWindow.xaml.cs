@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ch.hsr.wpf.gadgeothek.service;
 using ch.hsr.wpf.gadgeothek.domain;
+using System.Configuration;
 
 
 namespace ch.hsr.wpf.gadgeothek.admintool
@@ -25,13 +26,12 @@ namespace ch.hsr.wpf.gadgeothek.admintool
     public partial class MainWindow : Window
     {
         private LibraryAdminService service;
-
         public ObservableCollection<Gadget> Gadgets { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            service = new LibraryAdminService("http://mge10.dev.ifs.hsr.ch/");
+            service = new LibraryAdminService(ConfigurationSettings.AppSettings.Get("server"));
 
             this.DataContext = this;
             Gadgets = new ObservableCollection<Gadget>(service.GetAllGadgets());

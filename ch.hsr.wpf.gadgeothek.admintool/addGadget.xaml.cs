@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Configuration;
 using ch.hsr.wpf.gadgeothek.domain;
 using ch.hsr.wpf.gadgeothek.service;
 
@@ -33,7 +34,7 @@ namespace ch.hsr.wpf.gadgeothek.admintool
             double.TryParse(price.Text.ToString(), out isDouble);
             gadget.Price = isDouble;
             gadget.Manufacturer = manufacturer.Text.ToString();
-            LibraryAdminService service = new LibraryAdminService("http://mge10.dev.ifs.hsr.ch/");
+            LibraryAdminService service = new LibraryAdminService(ConfigurationSettings.AppSettings.Get("server"));
             if (service.AddGadget(gadget))
             {
                 MessageBox.Show("Gadget successfully added!");
@@ -43,8 +44,6 @@ namespace ch.hsr.wpf.gadgeothek.admintool
             {
                 MessageBox.Show("Operation failed!");
             }
-            
-
         }
     }
 }
