@@ -27,22 +27,44 @@ namespace ch.hsr.wpf.gadgeothek.admintool
     {
         private LibraryAdminService service;
         public ObservableCollection<Gadget> Gadgets { get; set; }
+        public ObservableCollection<Loan> Loans { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
             service = new LibraryAdminService(ConfigurationSettings.AppSettings.Get("server"));
+            var client = new websocket.WebSocketClient(ConfigurationSettings.AppSettings.Get("server"));
 
             this.DataContext = this;
             Gadgets = new ObservableCollection<Gadget>(service.GetAllGadgets());
-            List<domain.Loan> loans = service.GetAllLoans();
+            Loans = new ObservableCollection<Loan>(service.GetAllLoans());
             List<domain.Customer> customers = service.GetAllCustomers();
             List<domain.Reservation> reservations = service.GetAllReservations();
 
             //gadgetGrid.ItemsSource = gadgets;
-            loanGrid.ItemsSource = loans;
+            //loanGrid.ItemsSource = loans;
             reservationGrid.ItemsSource = reservations;
             customerGrid.ItemsSource = customers;
+
+            
+            client.NotificationReceived += (o, e) =>
+            {
+                Console.WriteLine("WebSocket::Notification: " + e.Notification.Target + " > " + e.Notification.Type);
+
+                // demonstrate how these updates could be further used
+                if (e.Notification.Target == typeof(Loan).Name.ToLower())
+                {
+                    // deserialize the json representation of the data object to an object of type Gadget
+                    var loan = e.Notification.DataAs<Loan>();
+                    // now you can use it as usual...
+                    //Console.WriteLine("Details: " + gadget);
+                    Loans.Add(loan);
+                }
+            };
+
+            // spawn a new background thread in which the websocket client listens to notifications from the server
+            var bgTask = client.ListenAsync();
+
 
         }
 
@@ -54,7 +76,7 @@ namespace ch.hsr.wpf.gadgeothek.admintool
             addWindow.Show();
             addWindow.Closed += delegate(object s, EventArgs a)
             {
-                refreshGadgets();
+                RefreshGadgets();
             };
         }
 
@@ -73,7 +95,7 @@ namespace ch.hsr.wpf.gadgeothek.admintool
                 {
                     if (service.DeleteGadget(selectedGadget))
                     {
-                        MessageBox.Show("Gadget successfully deleted!");
+                        //MessageBox.Show("Gadget successfully deleted!");
                         deleteWindow.Close();
                     }
                     else
@@ -83,12 +105,12 @@ namespace ch.hsr.wpf.gadgeothek.admintool
                 };
                 deleteWindow.Closed += delegate (object s, EventArgs a)
                 {
-                    refreshGadgets();
+                    RefreshGadgets();
                 };
             }
         }
 
-        private void refreshGadgets()
+        private void RefreshGadgets()
         {
             Gadgets.Clear();
             service.GetAllGadgets().ForEach(g => Gadgets.Add(g));

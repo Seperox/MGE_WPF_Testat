@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ch.hsr.wpf.gadgeothek.admintool"
         mc:Ignorable="d"
         Title="deleteGadget" Height="300" Width="300">
-    <DockPanel>
+    <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Top">
             <TextBlock Text="Delete Gadget" FontSize="20"/>
             <TextBlock Text="Are you sure you want to delete this Gadget?" />

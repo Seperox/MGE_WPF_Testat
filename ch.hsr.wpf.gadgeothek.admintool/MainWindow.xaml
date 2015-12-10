@@ -22,7 +22,7 @@
             </TabItem>
             <TabItem Header="Ausleihen">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Name="loanGrid" />
+                    <DataGrid Name="loanGrid" ItemsSource="{Binding Loans}" />
                 </Grid>
             </TabItem>
             <TabItem Header="Reservationen">
